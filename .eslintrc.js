@@ -12,5 +12,11 @@ module.exports = {
     "import/no-named-as-default": 2,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "arrow-body-style": "off", 
+    "jsx-a11y/media-has-caption": [ 2, {
+      "audio": [ "Audio" ],
+      "video": [ "Video" ],
+      "track": [ "Track" ],
+    }],
+    "global-require": 0,
   }
 };
