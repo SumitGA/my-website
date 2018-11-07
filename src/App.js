@@ -1,29 +1,61 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import axios from 'axios';
 import store from './store';
 import './css/animate.css';
 import './css/flexslider.css';
 import './fonts/icomoon/style.css';
 import './css/bootstrap.css';
 import './css/style.css';
-import Headers from './components/Navigations/Headers';
 import NavBar from './components/Navigations/NavBar';
 import Footers from './components/Navigations/Footers';
 import Bio from './components/Bio/Bio';
 import ClientTestimonials from './components/Testimonials/ClientTestimonials';
+import Portfolio from './components/Portfoli/Portfolio';
+import Technologies from './components/Technologies/Technologies';
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <div>
-        <Headers />
-        <body data-spy="scroll" data-target="#pb-navbar" data-offset="200">
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.fetchPosts = this.fetchPosts.bind(this);
+    // this.getPosts = this.getPosts.bind(this);
+    this.state = {
+      posts: [],
+    };
+  }
+
+  componentWillMount() {
+    this.fetchPosts();
+  }
+
+  getPosts = (response) => {
+    this.setState({
+      posts: response,
+    });
+  }
+
+  fetchPosts = () => {
+    let data = [];
+    axios.get('https://jsonplaceholder.typicode.com/album/1/photos')
+      .then((response) => {
+        data = [...response.data];
+        this.getPosts(data);
+      });
+  };
+
+
+  render() {
+    const { posts } = { ...this.state };
+    return (
+      <Provider store={store}>
+        <div>
           <NavBar />
-
           <section className="site-hero" id="section-home" data-stellar-background-ratio="0.5">
-            <video autoPlay loop muted playsInline className="fullscreen-video">
-              <source src={require('./videos/webvideo.mp4')} type="video/mp4" />
-            </video>
+            <div className="fullscreen-video">
+              <video autoPlay loop muted playsInline>
+                <source src={require('./videos/webvideo.mp4')} type="video/mp4" />
+              </video>
+            </div>
             <div className="container">
               <div className="row intro-text align-items-center justify-content-center">
                 <div className="col-md-10 text-center">
@@ -38,322 +70,6 @@ const App = () => {
             </div>
           </section>
           <Bio />
-          <ClientTestimonials />
-          <section className="site-section border-top pb-0" id="section-services">
-            <div className="container">
-              <div className="row mb-4">
-                <div className="col-md-12">
-                  <div className="section-heading text-center">
-                    <h2><strong>Technologies</strong></h2>
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-6 col-lg-4 text-center mb-5">
-                  <div className="site-service-item site-animate" data-animate-effect="fadeIn">
-                    <span className="icon">
-                      <span className="icon-html-five2" />
-                    </span>
-                    <h3 className="mb-4">HTML-5</h3>
-                    <p>
-                      Far far away, behind the word mountains,
-                      far from the countries Vokalia and Consonantia,
-                      there live the blind texts.
-                      Separated they live in Bookmarksgrove right at the coast of the Semantics,
-                      a large language ocean.
-                    </p>
-                    <p>
-                      <a href="#learn-more" className="site-link">
-                          Learn More
-                        <i className="icon-chevron-right" />
-                      </a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-md-6 col-lg-4 text-center mb-5">
-                  <div className="site-service-item site-animate" data-animate-effect="fadeIn">
-                    <span className="icon">
-                      <span className="icon-css3" />
-                    </span>
-                    <h3 className="mb-4">CSS3</h3>
-                    <p>
-                      A small river named Duden flows by their place and
-                      supplies it with the necessary regelialia.
-                      It is a paradisematic country,
-                      in which roasted parts of sentences fly into your mouth.
-                    </p>
-                    <p>
-                      <a href="#learn-more" className="site-link">
-                          Learn More
-                        <i className="icon-chevron-right" />
-                      </a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-md-6 col-lg-4 text-center mb-5">
-                  <div className="site-service-item site-animate" data-animate-effect="fadeIn">
-                    <span className="icon">
-                      <span className="icon-toolbox" />
-                    </span>
-                    <h3 className="mb-4">DevOps</h3>
-                    <p>
-                      Even the all-powerful Pointing has no control about
-                      the blind texts it is an almost unorthographic life
-                      One day however a small line of blind text by the name of
-                      Lorem Ipsum decided to leave for the far World of Grammar.
-                    </p>
-                    <p>
-                      <a href="#learn-more" className="site-link">
-                          Learn More
-                        <i className="icon-chevron-right" />
-                      </a>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-md-6 col-lg-4 text-center mb-5">
-                  <div className="site-service-item site-animate" data-animate-effect="fadeIn">
-                    <span className="icon">
-                      <span className="icon-adjustments" />
-                    </span>
-                    <h3 className="mb-4">Software Optimization</h3>
-                    <p>
-                      Far far away, behind the word mountains,
-                      far from the countries Vokalia and Consonantia,
-                      there live the blind texts. Separated they live in
-                      Bookmarksgrove right at the coast of the Semantics,
-                      a large language ocean.
-                    </p>
-                    <p>
-                      <a href="#learn-more" className="site-link">
-                        Learn More
-                        <i className="icon-chevron-right" />
-                      </a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-md-6 col-lg-4 text-center mb-5">
-                  <div className="site-service-item site-animate" data-animate-effect="fadeIn">
-                    <span className="icon">
-                      <span className="icon-wallet2" />
-                    </span>
-                    <h3 className="mb-4">Increase Revenue</h3>
-                    <p>
-                      A small river named Duden flows by their place and
-                      supplies it with the necessary regelialia.
-                      It is a paradisematic country,
-                      in which roasted parts of sentences fly into your mouth.
-                    </p>
-                    <p>
-                      <a href="#site-link" className="site-link">
-                        Learn More
-                        <i className="icon-chevron-right" />
-                      </a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-md-6 col-lg-4 text-center mb-5">
-                  <div className="site-service-item site-animate" data-animate-effect="fadeIn">
-                    <span className="icon">
-                      <span className="icon-lightbulb" />
-                    </span>
-                    <h3 className="mb-4">Intuitive Idea</h3>
-                    <p>
-                      Even the all-powerful Pointing has no
-                      control about the blind texts it is an almost
-                      unorthographic life One day however a small line
-                      of blind text by the name of Lorem Ipsum decided
-                      to leave for the far World of Grammar.
-                    </p>
-                    <p>
-                      <a href="#site-link" className="site-link">
-                        Learn More
-                        <i className="icon-chevron-right" />
-                      </a>
-                    </p>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </section>
-
-
-          <section className="site-section" id="section-features">
-            <div className="container">
-              <div className="row site-section">
-                <div className="col-md-8">
-                  <p><img src={require('./images/laptop_1.jpg')} alt="" className="img-fluid" /></p>
-                </div>
-                <div className="col-md-4">
-                  <h3 className="mb-3">Big Benefits for Small Business</h3>
-                  <p>
-                    Even the all-powerful Pointing has no control
-                    about the blind texts it is an almost unorthographic
-                    life One day however a small line of blind text by the name of
-                    Lorem Ipsum decided to leave for the far World of Grammar.
-                  </p>
-
-                  <ul className="site-list">
-                    <li className="site-check">Pointing has no control</li>
-                    <li className="site-check">A small river named Duden flows</li>
-                    <li className="site-check">Roasted parts of sentences fly into your mouth</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="col-md-8 order-md-2">
-                  <p><img src={require('./images/laptop_1.jpg')} alt="" className="img-fluid" /></p>
-                </div>
-                <div className="col-md-4 order-md-1">
-                  <h3 className="mb-3">All in One Place</h3>
-                  <p>
-                    Even the all-powerful Pointing has no control
-                    about the blind texts it is an almost unorthographic life
-                    One day however a small line of blind text by the name of
-                    Lorem Ipsum decided to leave for the far World of Grammar.
-                  </p>
-
-                  <ul className="site-list">
-                    <li className="site-check">Pointing has no control</li>
-                    <li className="site-check">A small river named Duden flows</li>
-                    <li className="site-check">Roasted parts of sentences fly into your mouth</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </section>
-          <section className="site-section" id="section-portfolio">
-            <div className="container">
-              <div className="row">
-                <div className="section-heading text-center col-md-12">
-                  <h2>
-                    Featured
-                    <strong>Portfolio</strong>
-                  </h2>
-                </div>
-              </div>
-              <div className="filters">
-                <ul>
-                  <li className="active" data-filter="*">All</li>
-                  <li data-filter=".packaging">Packaging</li>
-                  <li data-filter=".mockup">Mockup</li>
-                  <li data-filter=".typography">Typography</li>
-                  <li data-filter=".photography">Photography</li>
-                </ul>
-              </div>
-
-              <div className="filters-content">
-                <div className="row grid">
-                  <div className="single-portfolio col-sm-4 all mockup">
-                    <div className="relative">
-                      <div className="thumb">
-                        <div className="overlay overlay-bg" />
-                        <img className="image img-fluid" src={require('./images/p1.jpg')} alt="" />
-                      </div>
-                      <a href="images/p1.jpg" className="img-pop-up">
-                        <div className="middle">
-                          <div className="text align-self-center d-flex"><img src={require('./images/preview.png')} alt="" /></div>
-                        </div>
-                      </a>
-                    </div>
-                    <div className="p-inner">
-                      <h4>Square Box Mockup</h4>
-                      <div className="cat">Mockup</div>
-                    </div>
-                  </div>
-                  <div className="single-portfolio col-sm-4 all mockup">
-                    <div className="relative">
-                      <div className="thumb">
-                        <div className="overlay overlay-bg" />
-                        <img className="image img-fluid" src={require('./images/p2.jpg')} alt="" />
-                      </div>
-                      <a href="images/p2.jpg" className="img-pop-up">
-                        <div className="middle">
-                          <div className="text align-self-center d-flex"><img src={require('./images/preview.png')} alt="" /></div>
-                        </div>
-                      </a>
-                    </div>
-                    <div className="p-inner">
-                      <h4>Product Box Package Mockup</h4>
-                      <div className="cat">Mockup</div>
-                    </div>
-                  </div>
-                  <div className="single-portfolio col-sm-4 all packaging">
-                    <div className="relative">
-                      <div className="thumb">
-                        <div className="overlay overlay-bg" />
-                        <img className="image img-fluid" src={require('./images/p3.jpg')} alt="" />
-                      </div>
-                      <a href="images/p3.jpg" className="img-pop-up">
-                        <div className="middle">
-                          <div className="text align-self-center d-flex"><img src={require('./images/preview.png')} alt="" /></div>
-                        </div>
-                      </a>
-
-                    </div>
-                    <div className="p-inner">
-                      <h4>Creative Package Design</h4>
-                      <div className="cat">Packaging</div>
-                    </div>
-                  </div>
-                  <div className="single-portfolio col-sm-4 all packaging">
-                    <div className="relative">
-                      <div className="thumb">
-                        <div className="overlay overlay-bg" />
-                        <img className="image img-fluid" src={require('./images/p4.jpg')} alt="" />
-                      </div>
-                      <a href="images/p4.jpg" className="img-pop-up">
-                        <div className="middle">
-                          <div className="text align-self-center d-flex"><img src={require('./images/preview.png')} alt="" /></div>
-                        </div>
-                      </a>
-                    </div>
-                    <div className="p-inner">
-                      <h4>Packaging Brand</h4>
-                      <div className="cat">Packaging</div>
-                    </div>
-                  </div>
-                  <div className="single-portfolio col-sm-4 all typography">
-                    <div className="relative">
-                      <div className="thumb">
-                        <div className="overlay overlay-bg" />
-                        <img className="image img-fluid" src={require('./images/p5.jpg')} alt="" />
-                      </div>
-                      <a href="images/p5.jpg" className="img-pop-up">
-                        <div className="middle">
-                          <div className="text align-self-center d-flex"><img src={require('./images/preview.png')} alt="" /></div>
-                        </div>
-                      </a>
-                    </div>
-                    <div className="p-inner">
-                      <h4>Isometric 3D Extrusion</h4>
-                      <div className="cat">Typography</div>
-                    </div>
-                  </div>
-                  <div className="single-portfolio col-sm-4 all photography">
-                    <div className="relative">
-                      <div className="thumb">
-                        <div className="overlay overlay-bg" />
-                        <img className="image img-fluid" src={require('./images/p6.jpg')} alt="" />
-                      </div>
-                      <a href="images/p6.jpg" className="img-pop-up">
-                        <div className="middle">
-                          <div className="text align-self-center d-flex"><img src={require('./images/preview.png')} alt="" /></div>
-                        </div>
-                      </a>
-                    </div>
-                    <div className="p-inner">
-                      <h4>White Space Photography</h4>
-                      <div className="cat">photography</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
           <section className="site-section bg-light " id="section-resume">
             <div className="container">
               <div className="row">
@@ -370,53 +86,39 @@ const App = () => {
                   <div className="resume-item mb-4">
                     <span className="date">
                       <span className="icon-calendar" />
-                      March 2013 - Present
+                      April 2013 - April 2018
                     </span>
-                    <h3>Masteral in Information Technology</h3>
+                    <h3>Bachelor In Computer Science</h3>
                     <p>
-                      Even the all-powerful Pointing has no control
-                      about the blind texts it is an almost unorthographic.
+                      I completed My Bachelor in Computer Science from Tribhuvan University
+                      with specializations in Software Engineering and Artificial Intelligence.
                     </p>
-                    <span className="school">New York University</span>
+                    <span className="school">Tribhuvan University | TU</span>
                   </div>
 
                   <div className="resume-item mb-4">
                     <span className="date">
                       <span className="icon-calendar" />
-                      March 2013 - Present Deacember.
+                      April 2011 - March 2013.
                     </span>
-                    <h3>Masteral in Information Technology</h3>
+                    <h3>Higher Secondary Education</h3>
                     <p>
-                      Even the all-powerful Pointing has no control about
-                      the blind texts it is an almost unorthographic.
+                      I completed my Higher Secondary Education with Mathematics
+                      and Physics as major.
                     </p>
-                    <span className="school">New York University</span>
+                    <span className="school">Higher Secondary Education Board | HSEB</span>
                   </div>
 
                   <div className="resume-item mb-4">
                     <span className="date">
                       <span className="icon-calendar" />
-                      March 2013 - Present
+                      March 2011
                     </span>
-                    <h3>Masteral in Information Technology</h3>
+                    <h3>School Leaving Certificate</h3>
                     <p>
-                      Even the all-powerful Pointing has no control
-                      about the blind texts it is an almost unorthographic.
+                      I completed my Secondary Education from Nyatapola Secondary School.
                     </p>
-                    <span className="school">New York University</span>
-                  </div>
-
-                  <div className="resume-item mb-4">
-                    <span className="date">
-                      <span className="icon-calendar" />
-                      March 2013 - Present Deacember.
-                    </span>
-                    <h3>Masteral in Information Technology</h3>
-                    <p>
-                      Even the all-powerful Pointing has no control about
-                      the blind texts it is an almost unorthographic.
-                    </p>
-                    <span className="school">New York University</span>
+                    <span className="school">Nepal Government</span>
                   </div>
                 </div>
                 <div className="col-md-6">
@@ -424,56 +126,39 @@ const App = () => {
                   <div className="resume-item mb-4">
                     <span className="date">
                       <span className="icon-calendar" />
-                      March 2013 - Present
+                      Feburary 2017 - July 2017
                     </span>
-                    <h3>Lead Product Designer</h3>
+                    <h3>Software Engineer | SYS INC</h3>
                     <p>
-                      Even the all-powerful Pointing has no control about
-                      the blind texts it is an almost unorthographic.
+                      I worked at company named SYS INC. which was an out-sourcing company.
+                      During my time there I worked on designing and developing mulitple Java Web
+                      services which would later auto generation Ruby on Rails API. I also worked
+                      with multiple databases such as Casandra, MongoDB, Postgresql to name a few.
+                      Had some experience with Machine Learning and Deep Learning Technologies such
+                      as TensorFlow, Apache Spark, Hadoop.
                     </p>
-                    <span className="school">Github</span>
+                    <span className="school">SYS INC</span>
                   </div>
                   <div className="resume-item mb-4">
                     <span className="date">
                       <span className="icon-calendar" />
-                      March 2013 - Present
+                      August 2017 - August 2018
                     </span>
-                    <h3>Lead Product Designer</h3>
+                    <h3>Software Engineer | Codyssey Web Nepal</h3>
                     <p>
-                      Even the all-powerful Pointing has no control about the
-                      blind texts it is an almost unorthographic.
+                      At Codyssey Web Nepal I worked on Ruby on Rails as backend technology and
+                      ReactJs as the frontend technology.About 1 year duration of working there as a
+                      Software Engieer made me a better person and a cunning Software Developer.
+                      I got opportunities to get used to with high rated jobs such as DevOps, QA,
+                      System Analyst and a Web Designer.
                     </p>
-                    <span className="school">Facebook</span>
-                  </div>
-                  <div className="resume-item mb-4">
-                    <span className="date">
-                      <span className="icon-calendar" />
-                      March 2013 - Present
-                    </span>
-                    <h3>Lead Product Designer</h3>
-                    <p>
-                      Even the all-powerful Pointing has no control about the
-                      blind texts it is an almost unorthographic.
-                    </p>
-                    <span className="school">Twitter</span>
-                  </div>
-                  <div className="resume-item mb-4">
-                    <span className="date">
-                      <span className="icon-calendar" />
-                      March 2013 - Present
-                    </span>
-                    <h3>Lead Product Designer</h3>
-                    <p>
-                      Even the all-powerful Pointing has no control about the
-                      blind texts it is an almost unorthographic.
-                    </p>
-                    <span className="school">Shopify</span>
+                    <span className="school">Codyssey Web Nepal</span>
                   </div>
                 </div>
               </div>
             </div>
           </section>
-
+          <Technologies />
           <section className="site-section" id="section-blog">
             <div className="container">
               <div className="row">
@@ -579,7 +264,8 @@ const App = () => {
               </div>
             </div>
           </section>
-
+          <Portfolio />
+          <ClientTestimonials posts={posts} />
           <section className="site-section bg-light" id="section-contact">
             <div className="container">
               <div className="row">
@@ -638,10 +324,10 @@ const App = () => {
             </div>
           </section>
           <Footers />
-        </body>
-      </div>
-    </Provider>
-  );
-};
+        </div>
+      </Provider>
+    );
+  }
+}
 
 export default App;
