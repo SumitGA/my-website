@@ -5,7 +5,7 @@ function getPosts() {
     method: 'GET',
   };
 
-  return axios('https://jsonplaceholder.typicode.com/posts', requestOptions);
+  return axios('http://jsonplaceholder.typicode.com/posts?_page=1&_limit=5', requestOptions);
 }
 
 const postServices = {

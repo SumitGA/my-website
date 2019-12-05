@@ -36,7 +36,7 @@ class App extends Component {
 
   fetchPosts = () => {
     let data = [];
-    axios.get('https://jsonplaceholder.typicode.com/album/1/photos')
+    axios.get('http://jsonplaceholder.typicode.com/posts?_page=1&_limit=6')
       .then((response) => {
         data = [...response.data];
         this.getPosts(data);

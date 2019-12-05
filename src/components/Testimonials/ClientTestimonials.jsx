@@ -8,17 +8,12 @@ const ClientTestimonials = (props) => {
         <div className="col-md-6" key={value.id}>
           <div className="block-47 d-flex mb-5" key={value.albumId}>
             <div className="block-47-image">
-              <img src={value.url} alt="placeholder" className="img-fluid" />
+              <img src="https://via.placeholder.com/600/92c952" alt="placeholder" className="img-fluid" />
             </div>
             <blockquote className="block-47-quote">
               <p>
-
                 <span key="ldquo">&ldquo;</span>
-                Far far away, behind the word mountains,
-                far from the countries Vokalia and Consonantia,
-                there live the blind texts.
-                Separated they live in Bookmarksgrove right at the coast of the Semantics,
-                a large language ocean.
+                { value.body }
                 <span key="rdquo">&rdquo;</span>
               </p>
               <cite className="block-47-quote-author">
