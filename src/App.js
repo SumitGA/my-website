@@ -13,6 +13,7 @@ import Bio from './components/Bio/Bio';
 import ClientTestimonials from './components/Testimonials/ClientTestimonials';
 import Portfolio from './components/Portfoli/Portfolio';
 import Technologies from './components/Technologies/Technologies';
+import Experience from './components/Experience/Experience';
 
 class App extends Component {
   constructor(props) {
@@ -121,40 +122,7 @@ class App extends Component {
                     <span className="school">Nepal Government</span>
                   </div>
                 </div>
-                <div className="col-md-6">
-                  <h2 className="mb-5">Experience</h2>
-                  <div className="resume-item mb-4">
-                    <span className="date">
-                      <span className="icon-calendar" />
-                      Feburary 2017 - July 2017
-                    </span>
-                    <h3>Software Engineer | SYS INC</h3>
-                    <p>
-                      I worked at company named SYS INC. which was an out-sourcing company.
-                      During my time there I worked on designing and developing mulitple Java Web
-                      services which would later auto generation Ruby on Rails API. I also worked
-                      with multiple databases such as Casandra, MongoDB, Postgresql to name a few.
-                      Had some experience with Machine Learning and Deep Learning Technologies such
-                      as TensorFlow, Apache Spark, Hadoop.
-                    </p>
-                    <span className="school">SYS INC</span>
-                  </div>
-                  <div className="resume-item mb-4">
-                    <span className="date">
-                      <span className="icon-calendar" />
-                      August 2017 - August 2018
-                    </span>
-                    <h3>Software Engineer | Codyssey Web Nepal</h3>
-                    <p>
-                      At Codyssey Web Nepal I worked on Ruby on Rails as backend technology and
-                      ReactJs as the frontend technology.About 1 year duration of working there as a
-                      Software Engieer made me a better person and a cunning Software Developer.
-                      I got opportunities to get used to with high rated jobs such as DevOps, QA,
-                      System Analyst and a Web Designer.
-                    </p>
-                    <span className="school">Codyssey Web Nepal</span>
-                  </div>
-                </div>
+                <Experience />
               </div>
             </div>
           </section>
