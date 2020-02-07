@@ -3,6 +3,7 @@ module.exports = {
   "parser": "babel-eslint",
   "rules": {
     "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+    "operator-linebreak": [2, "before", { "overrides": { "?": "after" } }],
     "no-unused-expression": "off",
     "import/default": 0,
     "import/no-duplicates": 0,
